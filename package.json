@@ -1,0 +1,19 @@
+{
+  "name": "librarian-ai",
+  "version": "1.0.0",
+  "description": "An AI chatbot with semantic search that helps librarians make personalized book recommendations based on what's currently available in the collection",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SinceDayTwo/librarian-ai.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SinceDayTwo/librarian-ai/issues"
+  },
+  "homepage": "https://github.com/SinceDayTwo/librarian-ai#readme"
+}
