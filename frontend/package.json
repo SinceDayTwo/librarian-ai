@@ -1,5 +1,5 @@
 {
-  "name": "librarian-ai",
+  "name": "librarian-ai-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
