@@ -1,7 +1,14 @@
 {
   "name": "librarian-ai-backend",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.42.4",
+    "dotenv": "^16.4.5",
+    "openai": "^4.33.1",
+    "typescript": "^5.4.5"
   }
 }
