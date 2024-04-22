@@ -21,16 +21,14 @@ export async function getBooks() {
 }
 
 export async function storeEmbedding(id, embedding) {
-  const result = await supabase
+  const {status, error} = await supabase
     .from("Books")
     .update({ embedding: embedding })
-    .eq("id", id);
+    .eq("id", id)
 
-  // if (error) {
-  //   throw error;
-  // }
+  if (error) {
+    throw error;
+  }
 
-  console.log("result -->", result);
-
-  // return status;
+  return status;
 }

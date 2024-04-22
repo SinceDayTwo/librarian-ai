@@ -4,20 +4,17 @@ import { getBooks, storeEmbedding } from "./supabase.js";
 async function createEmbeddings() {
   const books = await getBooks();
 
-  // for (const book of books) {
+  for (const book of books) {
   const embeddingResponse = await openai.embeddings.create({
     model: "text-embedding-ada-002",
-    input: [books[0].summary],
+    input: [book.summary],
   });
 
   const [{ embedding }] = embeddingResponse.data;
 
-  console.log("embedding -->", embedding);
+  const status = await storeEmbedding(book.id, embedding);
 
-  await storeEmbedding(books[0].id, embedding);
-
-  // console.log("status -->", status);
-  // }
+  console.log("status -->", status);
+  }
 }
 
-createEmbeddings();
