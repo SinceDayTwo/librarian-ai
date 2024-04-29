@@ -1,4 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
+import { OpenAIEmbeddings } from "@langchain/openai";
+import { SupabaseVectorStore } from "@langchain/community/vectorstores/supabase";
 import "dotenv/config";
 
 const supabaseUrl = process.env.SUPABASE_DB_URL;
@@ -21,10 +23,10 @@ export async function getBooks() {
 }
 
 export async function storeEmbedding(id, embedding) {
-  const {status, error} = await supabase
+  const { status, error } = await supabase
     .from("Books")
     .update({ embedding: embedding })
-    .eq("id", id)
+    .eq("id", id);
 
   if (error) {
     throw error;
@@ -32,3 +34,21 @@ export async function storeEmbedding(id, embedding) {
 
   return status;
 }
+
+export async function similaritySearch() {
+  const embeddings = new OpenAIEmbeddings();
+  const store = new SupabaseVectorStore(embeddings, {
+    client: supabase,
+    tableName: "Books",
+    queryName: "match_documents",
+  });
+
+  const result = await store.similaritySearchWithScore(
+    "a fantastical story with wizards and other mythical creatures",
+    1
+  );
+
+  console.log("result -->", result[0][0].metadata);
+}
+
+similaritySearch();
