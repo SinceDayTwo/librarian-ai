@@ -1,10 +1,14 @@
-import "./App.css";
+import { DSProvider } from "@nypl/design-system-react-components";
+import PageContainer from "./components/PageContainer";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header"></header>
-    </div>
+    <DSProvider>
+      <div className="App">
+        <header className="App-header"></header>
+        <PageContainer/>
+      </div>
+    </DSProvider>
   );
 }
 
