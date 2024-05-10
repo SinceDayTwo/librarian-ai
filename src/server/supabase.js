@@ -1,10 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { SupabaseVectorStore } from "@langchain/community/vectorstores/supabase";
-import "dotenv/config";
 
-const supabaseUrl = process.env.SUPABASE_DB_URL;
-const supabaseKey = process.env.SUPABASE_DB_KEY;
+const supabaseUrl = process.env.REACT_APP_DB_URL;
+const supabaseKey = process.env.REACT_APP_DB_KEY;
 
 if (!supabaseUrl || !supabaseKey) {
   throw new Error("Supabase URL or key is not provided");
@@ -36,17 +35,16 @@ export async function storeEmbedding(id, embedding) {
 }
 
 export async function similaritySearch(searchTerm) {
-  const embeddings = new OpenAIEmbeddings();
+  const embeddings = new OpenAIEmbeddings({
+    apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+  });
   const store = new SupabaseVectorStore(embeddings, {
     client: supabase,
     tableName: "Books",
     queryName: "match_documents",
   });
 
-  const result = await store.similaritySearchWithScore(
-    searchTerm,
-    1
-  );
-  
-  return result[0][0].metadata
+  const result = await store.similaritySearchWithScore(searchTerm, 1);
+
+  return result[0][0];
 }
