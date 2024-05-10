@@ -35,7 +35,7 @@ export async function storeEmbedding(id, embedding) {
   return status;
 }
 
-export async function similaritySearch() {
+export async function similaritySearch(searchTerm) {
   const embeddings = new OpenAIEmbeddings();
   const store = new SupabaseVectorStore(embeddings, {
     client: supabase,
@@ -44,11 +44,9 @@ export async function similaritySearch() {
   });
 
   const result = await store.similaritySearchWithScore(
-    "a fantastical story with wizards and other mythical creatures",
+    searchTerm,
     1
   );
-
-  console.log("result -->", result[0][0].metadata);
+  
+  return result[0][0].metadata
 }
-
-similaritySearch();

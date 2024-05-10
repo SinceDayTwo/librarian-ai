@@ -2,15 +2,14 @@ import * as React from "react"
 import {Box, Button, ButtonGroup, Form, FormRow, FormField, TextInput} from "@nypl/design-system-react-components"
 
 export default function PageContainer(){
-    const handleSubmit = (e:  React.FormEvent<any>) => {
-        console.log(e)
+    const [searchTerm , setSearchTerm] = React.useState("");
+    const handleSubmit = (e: React.FormEvent<any>) => {
+        e.preventDefault();
     }
     return <Box>
     <Form
-        action="/end/point"
         gap="grid.l"
         id="form-id"
-        method="get"
         onSubmit={handleSubmit}
     >
         <FormRow>
@@ -19,11 +18,13 @@ export default function PageContainer(){
             id="book-search"
             isRequired
             labelText="Booksearch"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             />
         </FormField>
         <FormField>
         <ButtonGroup>
-        <Button id="submit" alignSelf="end">
+        <Button id="submit" type="submit" alignSelf="end">
           Submit
         </Button>
         </ButtonGroup>
