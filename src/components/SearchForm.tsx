@@ -10,18 +10,22 @@ import {
 } from "@nypl/design-system-react-components";
 import { similaritySearch } from "../server/supabase";
 
-export default function SearchForm() {
+import { Recommendation } from "./Recommendations";
+
+interface SearchFormProps {
+  setRecommendations: React.Dispatch<React.SetStateAction<Recommendation[]| null>>;
+}
+
+export default function SearchForm({setRecommendations}: SearchFormProps) {
   const [searchTerm, setSearchTerm] = React.useState("");
-  const [recommendation, setRecommendation] = React.useState(null);
   const handleSubmit = async (e: React.FormEvent<any>) => {
     e.preventDefault();
-    const recommendation = await similaritySearch(searchTerm);
+    const recommendations = await similaritySearch(searchTerm);
 
-    console.log("rec -->", recommendation);
-    return recommendation;
+    setRecommendations(recommendations);
   };
   return (
-    <Box>
+    <Box p="s">
       <Form gap="grid.l" id="form-id" onSubmit={handleSubmit}>
         <FormRow>
           <FormField>

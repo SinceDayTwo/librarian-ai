@@ -44,7 +44,6 @@ export async function similaritySearch(searchTerm) {
     queryName: "match_documents",
   });
 
-  const result = await store.similaritySearchWithScore(searchTerm, 1);
-
-  return result[0][0];
+  const result = await store.similaritySearchWithScore(searchTerm, 3);
+  return result.map(item => item[0]);
 }
